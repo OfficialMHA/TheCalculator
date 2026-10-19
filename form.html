@@ -239,6 +239,39 @@
          <button type="button" class="btn btn-success m-2">Prev</button>
          <button type="button" class="btn btn-success m-2">Next</button>
          <button type="button" class="btn btn-success m-2 d-none"> Submit </button>
+          <script>
+  const tabLinks = document.querySelectorAll('.nav-tabs .nav-link');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function getCurrentIndex() {
+    return Array.from(tabLinks).findIndex(link => link.classList.contains('active'));
+  }
+
+  function updateButtons() {
+    const i = getCurrentIndex();
+    const isLast = i === tabLinks.length - 1;
+    prevBtn.disabled = (i === 0);
+    nextBtn.classList.toggle('d-none', isLast);
+    submitBtn.classList.toggle('d-none', !isLast);
+  }
+
+  nextBtn.addEventListener('click', () => {
+    const i = getCurrentIndex();
+    if (i < tabLinks.length - 1) new bootstrap.Tab(tabLinks[i + 1]).show();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    const i = getCurrentIndex();
+    if (i > 0) new bootstrap.Tab(tabLinks[i - 1]).show();
+  });
+
+  // Runs whenever ANY tab becomes visible (including clicking the tabs directly)
+  tabLinks.forEach(link => link.addEventListener('shown.bs.tab', updateButtons));
+
+  updateButtons(); // set correct button state on page load
+</script>
       </div>
     </div>
   </div>
