@@ -1,292 +1,255 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Carbon Footprint Calculator</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  :root { --green:#27ae60; --green-dark:#1e8449; --muted:#6b7280; }
-  body { background:#f8f9fa; padding:20px 0 50px; }
-  h1 { font-size:2rem; font-weight:bold; }
-  .nav-tabs .nav-link { color:var(--muted); font-size:.9rem; }
-  .nav-tabs .nav-link.active { color:var(--green); border-bottom:2px solid var(--green); }
-  .card-header { background:var(--green); color:#fff; font-weight:bold; text-align:center; }
-  .btn-green { background:var(--green); color:#fff; border:none; }
-  .btn-green:hover { background:var(--green-dark); color:#fff; }
-  .btn-green:disabled { background:#cfd8d3; }
-  .progress-bar { background:var(--green); transition:width .3s; }
-  .is-invalid { border-color:#dc3545; }
-  .total { font-size:2.8rem; font-weight:bold; color:var(--green); }
-  .bar-track { height:10px; background:#eef1f0; }
-  .bar-fill { height:100%; background:var(--green); }
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-
-  <header class="text-center mb-4">
-    <h1>Carbon Footprint Calculator</h1>
-    <p class="text-muted mx-auto" style="max-width:600px">
-      Answer a few questions about your daily life to estimate your yearly carbon footprint.
-    </p>
-  </header>
-
-  <ul class="nav nav-tabs" id="tabs">
-    <li class="nav-item"><button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#general">General</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#home">Home</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#travel">Travel</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#food">Food</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#electronics">Electronic usage</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#shopping">Shopping</button></li>
-    <li class="nav-item"><button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#result">Result</button></li>
-  </ul>
-
-  <div class="progress my-3" style="height:6px" role="progressbar" aria-label="Progress">
-    <div class="progress-bar" id="progressBar" style="width:14%"></div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-lg-7">
-      <div class="card">
-        <div class="card-header" id="cardTitle">Fill the form below</div>
-        <div class="card-body tab-content">
-
-          <div class="tab-pane fade show active" id="general">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name">
-              <div class="invalid-feedback">Please enter your name.</div>
-            </div>
-            <div class="mb-3">
-              <label for="age" class="form-label">Age</label>
-              <input type="number" class="form-control" id="age" min="0" max="120">
-            </div>
-            <div class="mb-3">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country">
-                <option>Saudi Arabia</option><option>United Arab Emirates</option>
-                <option>Kuwait</option><option>Qatar</option><option>Bahrain</option>
-                <option>Oman</option><option>Egypt</option><option>Jordan</option>
-                <option>United States</option><option>United Kingdom</option>
-                <option>Canada</option><option>Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="home">
-            <div class="mb-3">
-              <label for="energyType" class="form-label">What type of energy is primarily used in your home?</label>
-              <select class="form-select" id="energyType">
-                <option value="500">Renewable energy</option>
-                <option value="2000">Natural gas</option>
-                <option value="3500">Electricity from coal</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="acUse" class="form-label">How often do you use air conditioning or heating?</label>
-              <input type="range" class="form-range" min="0" max="4" step="1" value="0" id="acUse">
-              <div class="d-flex justify-content-between small text-muted"><span>Never</span><span>Always</span></div>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="travel">
-            <div class="mb-3">
-              <label for="commuteType" class="form-label">How do you commute to school or work?</label>
-              <select class="form-select" id="commuteType">
-                <option value="0">I walk or use a bicycle</option>
-                <option value="0.05">I use public transportation or the school bus</option>
-                <option value="0.08">I carpool</option>
-                <option value="0.17">I drive alone</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="km" class="form-label">How many kilometers do you travel one way for your commute?</label>
-              <input type="number" class="form-control" id="km" min="0">
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="food">
-            <div class="mb-3">
-              <label for="diet" class="form-label">What kind of diet do you follow?</label>
-              <select class="form-select" id="diet">
-                <option value="1000">Vegan</option>
-                <option value="1400">Vegetarian</option>
-                <option value="2000">Meat occasionally</option>
-                <option value="2800">Regular meat eater</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="eatOut" class="form-label">How often do you eat out or order takeaway?</label>
-              <input type="range" class="form-range" min="0" max="4" step="1" value="0" id="eatOut">
-              <div class="d-flex justify-content-between small text-muted"><span>Never</span><span>Always</span></div>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="electronics">
-            <p class="mb-2">Which electronic devices do you use daily? Enter the hours per day for each one.</p>
-            <div class="row g-2 mb-3 align-items-center">
-              <div class="col-6"><div class="form-check">
-                <input class="form-check-input dev" type="checkbox" id="smartphone" data-hours="phoneH" data-factor="0.01">
-                <label class="form-check-label" for="smartphone">Smartphone</label></div></div>
-              <div class="col-6"><input type="number" class="form-control" id="phoneH" min="0" max="24" placeholder="Hours" disabled></div>
-
-              <div class="col-6"><div class="form-check">
-                <input class="form-check-input dev" type="checkbox" id="laptop" data-hours="laptopH" data-factor="0.05">
-                <label class="form-check-label" for="laptop">Laptop/Desktop</label></div></div>
-              <div class="col-6"><input type="number" class="form-control" id="laptopH" min="0" max="24" placeholder="Hours" disabled></div>
-
-              <div class="col-6"><div class="form-check">
-                <input class="form-check-input dev" type="checkbox" id="console" data-hours="consoleH" data-factor="0.15">
-                <label class="form-check-label" for="console">Gaming console</label></div></div>
-              <div class="col-6"><input type="number" class="form-control" id="consoleH" min="0" max="24" placeholder="Hours" disabled></div>
-
-              <div class="col-6"><div class="form-check">
-                <input class="form-check-input dev" type="checkbox" id="tv" data-hours="tvH" data-factor="0.10">
-                <label class="form-check-label" for="tv">Television</label></div></div>
-              <div class="col-6"><input type="number" class="form-control" id="tvH" min="0" max="24" placeholder="Hours" disabled></div>
-            </div>
-            <div class="mb-3">
-              <label for="online" class="form-label">How many hours do you spend online?</label>
-              <select class="form-select" id="online">
-                <option value="1">Less than 2 hours</option>
-                <option value="3">2-4 hours</option>
-                <option value="5">4-6 hours</option>
-                <option value="7">More than 6 hours</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="shopping">
-            <div class="mb-3">
-              <label for="clothes" class="form-label">How often do you buy new clothes?</label>
-              <select class="form-select" id="clothes">
-                <option value="100">Rarely</option>
-                <option value="300">Every few months</option>
-                <option value="700">Monthly</option>
-                <option value="1400">More than once a month</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <div class="form-label">Do you recycle?</div>
-              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="recycle" id="r1" value="0"><label class="form-check-label" for="r1">Always</label></div>
-              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="recycle" id="r2" value="100" checked><label class="form-check-label" for="r2">Sometimes</label></div>
-              <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="recycle" id="r3" value="250"><label class="form-check-label" for="r3">Never</label></div>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="result">
-            <div id="resultBody"></div>
-          </div>
-
+    <div class="container-fluid">
+        <!--heading in the center -->
+        <div class="row">
+          <h1 class="text-center">Carbon Footprint Calculator</h1>
         </div>
-        <div class="card-footer text-center">
-          <button type="button" id="prevBtn" class="btn btn-green m-1">Prev</button>
-          <button type="button" id="nextBtn" class="btn btn-green m-1">Next</button>
-          <button type="button" id="submitBtn" class="btn btn-green m-1 d-none">Submit</button>
-        </div>
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+               <a class="nav-link active" aria-current="page" href="#tab1" data-bs-toggle = "tab" data-bs-target = "#tab1">General</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#tab2" data-bs-toggle = "tab" data-bs-target = "#tab2">Home</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#tab3" data-bs-toggle = "tab" data-bs-target = "#tab3">Travel</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#tab4" data-bs-toggle = "tab" data-bs-target = "#tab4">Food</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#tab5" data-bs-toggle = "tab" data-bs-target = "#tab5">Electronic usage</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="#tab6" data-bs-toggle = "tab" data-bs-target = "#tab6">Shopping</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row my-2 justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-light text-center">
+                    Fill the form below 
+                </div>
+                <div class="card-body tab-content">
+                    <div id="tab1" class="tab-pane fade show active">
+                        <form>
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-6 col-form-label">Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="age" class="col-sm-6 col-form-label">Age</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="age">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="country" class="col-sm-6 col-form-label">Country</label>
+                                <div class="col-sm-6">
+                                     <select class="form-select countrypicker" data-default="SA" aria-label="Default select example" id ="country" > </select>
+                                </div>                          
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab2" class="tab-pane fade">
+                        <form>
+                            <div class="row mb-3">
+                                <label for="energyTypeDropDown" class="col-sm-6 col-form-label">What type of energy is primarily used in your home?</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select" aria-label="Default select example" id = "energyTypeDropDown">
+                                        <option value="Renewable energy">Renewable energy</option>
+                                        <option value="Natural gas">Natural gas</option>
+                                        <option value="Electricity from coal">Electricity from coal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="range1" class="col-sm-6 col-form-label">How often do you use air conditioning or heating?</label>
+                                <div class="col-sm-6">
+                                    <input type="range" class="form-range" min="0" max="4" step="1" id="range1">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Never</span>
+                                        <span>Always</span>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab3" class="tab-pane fade">
+                        <form>
+                            <div class="row mb-3">
+                                <label for="travelTypeDropDown" class="col-sm-6 col-form-label">How do you commute to school or work?</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select" aria-label="Default select example" id = "travelTypeDropDown">
+                                        <option value="I walk or use a bicycle">I walk or use a bicycle</option>
+                                        <option value="I use public transportation or the school bus">I use public transportation or the school bus</option>
+                                        <option value="I carpool">I carpool</option>
+                                        <option value="I drive alone">I drive alone</option>
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="kmCount" class="col-sm-6 col-form-label">How many kilometers do you travel one way for your commute?</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="kmCount">
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tab4" class="tab-pane fade">
+                        <form>
+                            <div class="row mb-3">
+                                <label for="dietDropDown" class="col-sm-6 col-form-label">What kind of diet do you follow?</label>
+                                <div class="col-sm-6">
+                                    <select class="form-select" aria-label="Default select example" id = "dietDropDown">
+                                        <option value="Vegan">Vegan</option>
+                                        <option value="Vegetarian">Vegetarian</option>
+                                        <option value="Meat occasionally">Meat occasionally</option>
+                                        <option value="Regular meat eater">Regular meat eater </option>
+                                    </select>
+                                </div>
+                            </div>                    
+                            <div class="row mb-3">
+                                <label for="range2" class="col-sm-6 col-form-label">How often do you eat out or order takeaway?</label>
+                                <div class="col-sm-6">
+                                    <input type="range" class="form-range" min="0" max="4" step="1" id="range2">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Never</span>
+                                        <span>Always</span>
+                                    </div>
+                                </div>
+                            </div>                    
+                        </form>
+                    </div>
+                    <div id="tab5" class="tab-pane fade">
+                        <form>
+                            <div class="row mb-3">
+                                <label class="col-sm-6 col-form-label">Which electronic devices do you use daily?</label>
+                                <div class="col-sm-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="smartphone" id="smartphone">
+                                        <label class="form-check-label" for="smartphone"> Smartphone </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="laptop" id="laptop">
+                                        <label class="form-check-label" for="laptop"> Laptop/Desktop </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="gamingConsole" id="gamingConsole">
+                                        <label class="form-check-label" for="gamingConsole"> Gaming console </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="television" id="television">
+                                        <label class="form-check-label" for="television"> Television </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>  How many hours do you use each selected device daily?   </div>
+                                <div class="row mb-3">
+                                    <label for="phoneUsage" class="col-sm-6 col-form-label"> Smartphone </label>
+                                    <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="phoneUsage">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="laptopUsage" class="col-sm-6 col-form-label"> Laptop/Desktop </label>
+                                    <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="laptopUsage">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="consoleUsage" class="col-sm-6 col-form-label">Gaming console </label>
+                                    <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="consoleUsage">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="tvUsage" class="col-sm-6 col-form-label"> Television </label>
+                                    <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="tvUsage">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="onlineHoursDropdown" class="col-sm-6 col-form-label"> How many hours do you spend online? </label>
+                                    <div class="col-sm-6">
+                                       <select class="form-select" aria-label="Default select example" id = "onlineHoursDropdown">
+                                          <option value="Less than 2 hours">Less than 2 hours</option>
+                                          <option value="2-4 hours">2-4 hours</option>
+                                          <option value="4-6 hours">4-6 hours</option>
+                                          <option value="More than 6 hours">More than 6 hours</option>
+                                       </select>
+                                    </div>
+                                  </div>
+                                
+                        </form>
+                    </div>
+                    <div id="tab6" class="tab-pane fade">
+                        <form>
+                            <div class="row mb-3">
+                                <label for="clothesFrequency" class="col-sm-6 col-form-label">How often do you buy new clothes?</label>
+                                <div class="col-sm-6">
+                                   <select class="form-select" aria-label="Default select example" id = "clothesFrequency">
+                                     <option value="Rarely">Rarely</option>
+                                     <option value="Every few months">Every few months</option>
+                                     <option value="Monthly">Monthly</option>
+                                     <option value="More than once a month">More than once a month</option>
+                                   </select>
+                                </div>
+                             </div>
+                          <div class="row mb-3">
+                           <label class="col-sm-6 col-form-label">Do you recycle?</label>
+                           <div class="col-sm-6">
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Always">
+                                 <label class="form-check-label" for="inlineRadio1"> Always </label>
+                             </div>
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Sometimes">
+                                 <label class="form-check-label" for="inlineRadio2"> Sometimes </label>
+                             </div>
+                             <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Never">
+                                 <label class="form-check-label" for="inlineRadio3">Never</label>
+                             </div>
+                           </div>
+                          </div>
+                        </form>
+                       </div>
+                </div>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <!-- code for the card header -->
+      <!-- code for the card body -->
+      <div class="card-footer text-muted text-center">
+         <button type="button" class="btn btn-success m-2">Prev</button>
+         <button type="button" class="btn btn-success m-2">Next</button>
+         <button type="button" class="btn btn-success m-2 d-none"> Submit </button>
+          <script>
       </div>
     </div>
   </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-(function () {
-  const tabs = Array.from(document.querySelectorAll('#tabs .nav-link'));
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const submitBtn = document.getElementById('submitBtn');
-  const bar = document.getElementById('progressBar');
-  const lastForm = tabs.length - 2;   // Shopping
-  const resultIdx = tabs.length - 1;  // Result
-
-  const current = () => tabs.findIndex(t => t.classList.contains('active'));
-  const go = i => bootstrap.Tab.getOrCreateInstance(tabs[i]).show();
-  const val = id => parseFloat(document.getElementById(id).value) || 0;
-
-  function validate() {
-    const name = document.getElementById('name');
-    const ok = name.value.trim() !== '';
-    name.classList.toggle('is-invalid', !ok);
-    if (!ok) { go(0); name.focus(); }
-    return ok;
-  }
-
-  function update() {
-    const i = current();
-    prevBtn.disabled = i === 0;
-    nextBtn.classList.toggle('d-none', i >= lastForm);
-    submitBtn.classList.toggle('d-none', i !== lastForm);
-    bar.style.width = Math.round((i + 1) / tabs.length * 100) + '%';
-    document.getElementById('cardTitle').textContent = tabs[i].textContent;
-    if (i === resultIdx) showResult();
-  }
-
-  function calculate() {
-    const recycle = document.querySelector('input[name="recycle"]:checked');
-    let devices = 0;
-    document.querySelectorAll('.dev').forEach(cb => {
-      if (cb.checked) devices += val(cb.dataset.hours) * 365 * parseFloat(cb.dataset.factor);
-    });
-    devices += val('online') * 365 * 0.03;
-
-    const c = {
-      Home:        val('energyType') + val('acUse') * 300,
-      Travel:      val('commuteType') * val('km') * 2 * 250,
-      Food:        val('diet') + val('eatOut') * 100,
-      Electronics: devices,
-      Shopping:    val('clothes') + (recycle ? parseFloat(recycle.value) : 0)
-    };
-    const total = Object.values(c).reduce((a, b) => a + b, 0);
-    return { c, total };
-  }
-
-  function showResult() {
-    const { c, total } = calculate();
-    const tonnes = total / 1000;
-    const name = document.getElementById('name').value.trim();
-    const rating = tonnes <= 2 ? 'Excellent' : tonnes <= 4.7 ? 'Good' : tonnes <= 10 ? 'Above average' : 'High impact';
-    const max = Math.max(...Object.values(c), 1);
-    let html = '<div class="text-center mb-4">' +
-      '<div class="text-muted">' + (name ? esc(name) + ', your' : 'Your') + ' estimated footprint</div>' +
-      '<div class="total">' + tonnes.toFixed(2) + '</div>' +
-      '<div class="text-muted">tonnes CO<sub>2</sub>e per year &middot; <strong>' + rating + '</strong></div></div>';
-    Object.entries(c).forEach(([k, v]) => {
-      html += '<div class="mb-3"><div class="d-flex justify-content-between small">' +
-        '<strong>' + k + '</strong><span>' + (v / 1000).toFixed(2) + ' t</span></div>' +
-        '<div class="bar-track"><div class="bar-fill" style="width:' + (v / max * 100) + '%"></div></div></div>';
-    });
-    html += '<p class="small text-muted mb-0">The global average is about 4.7 tonnes per person. ' +
-            'These figures are rough estimates for guidance only.</p>';
-    document.getElementById('resultBody').innerHTML = html;
-  }
-
-  function esc(s) {
-    return s.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  }
-
-  nextBtn.addEventListener('click', () => {
-    const i = current();
-    if (i === 0 && !validate()) return;
-    go(i + 1);
-  });
-  prevBtn.addEventListener('click', () => go(current() - 1));
-  submitBtn.addEventListener('click', () => { if (validate()) go(resultIdx); });
-
-  // Enable an hours box only when its device is ticked
-  document.querySelectorAll('.dev').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const box = document.getElementById(cb.dataset.hours);
-      box.disabled = !cb.checked;
-      if (!cb.checked) box.value = '';
-    });
-  });
-
-  document.getElementById('name').addEventListener('input', e => e.target.classList.remove('is-invalid'));
-  tabs.forEach(t => t.addEventListener('shown.bs.tab', update));
-  update();
-})();
-</script>
+</div>    
+            </div>
+        </div>
+     </div>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select-country@4.2.0/dist/js/bootstrap-select-country.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
